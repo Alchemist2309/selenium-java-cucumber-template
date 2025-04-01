@@ -11,6 +11,11 @@ plugins {
     id 'application'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -19,17 +24,20 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
-
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:31.1-jre'
-}
-
-application {
-    // Define the main class for the application.
-    mainClass = 'selenium.java.cucumber.template.App'
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation("org.seleniumhq.selenium:selenium-java:4.30.0")
+    // https://mvnrepository.com/artifact/org.testng/testng
+    testImplementation("org.testng:testng:7.11.0")
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-java
+    implementation("io.cucumber:cucumber-java:7.21.1")
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
+    testImplementation("io.cucumber:cucumber-junit:7.21.1")
+    // WebDriverManager dependency
+    implementation 'io.github.bonigarcia:webdrivermanager:5.5.3'
+    
 }
 
 tasks.named('test') {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
+    systemProperty "cucumber.options", 
+    System.getProperty("cucumber.options", "")
 }
